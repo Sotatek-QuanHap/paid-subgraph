@@ -1,0 +1,381 @@
+[
+    { "inputs": [{ "internalType": "bool", "name": "presentStatus", "type": "bool" }], "name": "AlreadySetRedeemableTGE", "type": "error" },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "ExceedMaxPurchaseAmountForEarlyAccess",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "ExceedMaxPurchaseAmountForGalaxyPool",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "ExceedMaxPurchaseAmountForKYCUser",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "ExceedMaxPurchaseAmountForNotKYCUser",
+        "type": "error"
+    },
+    { "inputs": [], "name": "ExceedMaxPurchaseAmountForUser", "type": "error" },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "ExceedTotalRaiseAmount",
+        "type": "error"
+    },
+    { "inputs": [], "name": "NotAdmin", "type": "error" },
+    { "inputs": [], "name": "NotAllowedToRedeemTGEIDOAmount", "type": "error" },
+    {
+        "inputs": [
+            { "internalType": "address", "name": "buyer", "type": "address" },
+            { "internalType": "address", "name": "purchaseToken", "type": "address" },
+            { "internalType": "uint256", "name": "allowance", "type": "uint256" },
+            { "internalType": "uint256", "name": "amount", "type": "uint256" }
+        ],
+        "name": "NotEnoughAllowance",
+        "type": "error"
+    },
+    { "inputs": [], "name": "NotEnoughConditionToWithdrawIDOToken", "type": "error" },
+    { "inputs": [], "name": "NotEnoughConditionToWithdrawPurchaseToken", "type": "error" },
+    { "inputs": [{ "internalType": "address", "name": "buyer", "type": "address" }], "name": "NotInWhaleList", "type": "error" },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "whaleOpenTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "whaleCloseTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "communityOpenTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "communityCloseTime", "type": "uint256" }
+        ],
+        "name": "NotUpdateValidTime",
+        "type": "error"
+    },
+    { "inputs": [], "name": "NotValidSignature", "type": "error" },
+    { "inputs": [], "name": "Redeemed", "type": "error" },
+    {
+        "inputs": [
+            { "internalType": "uint256", "name": "whaleOpenTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "whaleCloseTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "communityOpenTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "communityCloseTime", "type": "uint256" },
+            { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+            { "internalType": "address", "name": "buyer", "type": "address" }
+        ],
+        "name": "TimeOutToBuyToken",
+        "type": "error"
+    },
+    { "inputs": [], "name": "TimeOutToSetPoolStatus", "type": "error" },
+    { "inputs": [], "name": "ZeroAddress", "type": "error" },
+    { "inputs": [], "name": "ZeroAmount", "type": "error" },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "address", "name": "buyer", "type": "address" },
+            { "indexed": true, "internalType": "address", "name": "pool", "type": "address" },
+            { "indexed": true, "internalType": "address", "name": "IDOToken", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" },
+            { "indexed": false, "internalType": "uint8", "name": "poolType", "type": "uint8" }
+        ],
+        "name": "BuyToken",
+        "type": "event"
+    },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint8", "name": "version", "type": "uint8" }], "name": "Initialized", "type": "event" },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }], "name": "Paused", "type": "event" },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "address", "name": "IDOToken", "type": "address" },
+            { "indexed": false, "internalType": "address", "name": "purchaseToken", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "maxPurchaseAmountForKYCUser", "type": "uint256" },
+            { "indexed": false, "internalType": "uint256", "name": "maxPurchaseAmountForNotKYCUser", "type": "uint256" },
+            { "indexed": false, "internalType": "uint64", "name": "TGEDate", "type": "uint64" },
+            { "indexed": false, "internalType": "uint16", "name": "TGEPercentage", "type": "uint16" },
+            { "indexed": false, "internalType": "uint16", "name": "galaxyParticipationFeePercentage", "type": "uint16" },
+            { "indexed": false, "internalType": "uint16", "name": "crowdfundingParticipationFeePercentage", "type": "uint16" }
+        ],
+        "name": "PoolCreatedChild1",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "uint16", "name": "galaxyPoolProportion", "type": "uint16" },
+            { "indexed": false, "internalType": "uint16", "name": "earlyAccessProportion", "type": "uint16" },
+            { "indexed": false, "internalType": "uint256", "name": "totalRaiseAmount", "type": "uint256" },
+            { "indexed": false, "internalType": "uint64", "name": "whaleOpenTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint64", "name": "whaleCloseTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint64", "name": "communityCloseTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint256", "name": "rate", "type": "uint256" },
+            { "indexed": false, "internalType": "uint256", "name": "decimal", "type": "uint256" }
+        ],
+        "name": "PoolCreatedChild2",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "address", "name": "buyer", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "redeemAmount", "type": "uint256" }
+        ],
+        "name": "RedeemTGEAmount",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "indexed": true, "internalType": "bytes32", "name": "previousAdminRole", "type": "bytes32" },
+            { "indexed": true, "internalType": "bytes32", "name": "newAdminRole", "type": "bytes32" }
+        ],
+        "name": "RoleAdminChanged",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
+            { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+        ],
+        "name": "RoleGranted",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
+            { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+        ],
+        "name": "RoleRevoked",
+        "type": "event"
+    },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "IDOToken", "type": "address" }], "name": "SetIDOTokenAddress", "type": "event" },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "bool", "name": "redeemable", "type": "bool" }], "name": "SetTGERedeemable", "type": "event" },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }], "name": "Unpaused", "type": "event" },
+    { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "feeRecipient", "type": "address" }], "name": "UpdateFeeRecipient", "type": "event" },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "uint256", "name": "_rate", "type": "uint256" },
+            { "indexed": false, "internalType": "uint256", "name": "_decimal", "type": "uint256" }
+        ],
+        "name": "UpdateOfferedCurrencyRateAndDecimal",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": true, "internalType": "address", "name": "pool", "type": "address" },
+            { "indexed": false, "internalType": "bool", "name": "status", "type": "bool" }
+        ],
+        "name": "UpdateOpenPoolStatus",
+        "type": "event"
+    },
+    { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "bytes32", "name": "root", "type": "bytes32" }], "name": "UpdateRoot", "type": "event" },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "uint64", "name": "whaleOpenTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint64", "name": "whaleCloseTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint64", "name": "communityOpenTime", "type": "uint64" },
+            { "indexed": false, "internalType": "uint64", "name": "communityCloseTime", "type": "uint64" }
+        ],
+        "name": "UpdateTime",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "address", "name": "withdrawIDOTokenRecipient", "type": "address" },
+            { "indexed": false, "internalType": "address", "name": "IDOToken", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "remainAmount", "type": "uint256" }
+        ],
+        "name": "WithdrawIDOToken",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            { "indexed": false, "internalType": "address", "name": "withdrawPurchaseTokenRecipient", "type": "address" },
+            { "indexed": false, "internalType": "address", "name": "purchaseToken", "type": "address" },
+            { "indexed": false, "internalType": "uint256", "name": "purchaseAmount", "type": "uint256" }
+        ],
+        "name": "WithdrawPurchaseToken",
+        "type": "event"
+    },
+    { "inputs": [], "name": "DEFAULT_ADMIN_ROLE", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "IDOToken", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "NORMAL_USER", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "PERCENTAGE_DENOMINATOR", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "TGEDate", "outputs": [{ "internalType": "uint64", "name": "", "type": "uint64" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "TGEPercentage", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "TGERedeemable", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "WHALE", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" },
+    {
+        "inputs": [
+            { "internalType": "bytes32[]", "name": "proof", "type": "bytes32[]" },
+            { "internalType": "uint256", "name": "_purchaseAmount", "type": "uint256" }
+        ],
+        "name": "buyTokenInCrowdfundingPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "bytes32[]", "name": "proof", "type": "bytes32[]" },
+            { "internalType": "uint256", "name": "_purchaseAmount", "type": "uint256" },
+            { "internalType": "uint256", "name": "_allowance", "type": "uint256" },
+            { "internalType": "uint256", "name": "_deadline", "type": "uint256" },
+            { "internalType": "bytes", "name": "_signature", "type": "bytes" }
+        ],
+        "name": "buyTokenInCrowdfundingPoolWithPermit",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "bytes32[]", "name": "proof", "type": "bytes32[]" },
+            { "internalType": "uint256", "name": "_purchaseAmount", "type": "uint256" },
+            { "internalType": "uint256", "name": "_maxPurchaseBaseOnAllocations", "type": "uint256" }
+        ],
+        "name": "buyTokenInGalaxyPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "bytes32[]", "name": "proof", "type": "bytes32[]" },
+            { "internalType": "uint256", "name": "_purchaseAmount", "type": "uint256" },
+            { "internalType": "uint256", "name": "_maxPurchaseBaseOnAllocations", "type": "uint256" },
+            { "internalType": "uint256", "name": "_deadline", "type": "uint256" },
+            { "internalType": "bytes", "name": "_signature", "type": "bytes" }
+        ],
+        "name": "buyTokenInGalaxyPoolWithPermit",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    { "inputs": [], "name": "closePool", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [], "name": "communityCloseTime", "outputs": [{ "internalType": "uint64", "name": "", "type": "uint64" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "communityOpenTime", "outputs": [{ "internalType": "uint64", "name": "", "type": "uint64" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "crowdfundingParticipationFeePercentage", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "earlyAccessProportion", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "galaxyParticipationFeePercentage", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "galaxyPoolProportion", "outputs": [{ "internalType": "uint16", "name": "", "type": "uint16" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "getIDOTokenAmountByOfferedCurrency", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }], "name": "getRoleAdmin", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" },
+    {
+        "inputs": [
+            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "internalType": "address", "name": "account", "type": "address" }
+        ],
+        "name": "grantRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "internalType": "address", "name": "account", "type": "address" }
+        ],
+        "name": "hasRole",
+        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "address[2]", "name": "addrs", "type": "address[2]" },
+            { "internalType": "uint256[14]", "name": "uints", "type": "uint256[14]" }
+        ],
+        "name": "initialize",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    { "inputs": [], "name": "maxPurchaseAmountForEarlyAccess", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "maxPurchaseAmountForGalaxyPool", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "maxPurchaseAmountForKYCUser", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "maxPurchaseAmountForNotKYCUser", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    {
+        "inputs": [],
+        "name": "offeredCurrency",
+        "outputs": [
+            { "internalType": "uint256", "name": "rate", "type": "uint256" },
+            { "internalType": "uint256", "name": "decimal", "type": "uint256" }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    { "inputs": [], "name": "paused", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "poolFactory", "outputs": [{ "internalType": "contract IPoolFactory", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "purchaseToken", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "purchasedAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "purchasedAmountInEarlyAccess", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "purchasedAmountInGalaxyPool", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "redeemTGEIDOToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "redeemed", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
+    {
+        "inputs": [
+            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "internalType": "address", "name": "account", "type": "address" }
+        ],
+        "name": "renounceRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+            { "internalType": "address", "name": "account", "type": "address" }
+        ],
+        "name": "revokeRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    { "inputs": [], "name": "root", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "bool", "name": "_TGERedeemableStatus", "type": "bool" }], "name": "setRedeemableTGEIDOToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [{ "internalType": "bytes32", "name": "_root", "type": "bytes32" }], "name": "setRoot", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [{ "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }], "name": "supportsInterface", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "totalRaiseAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    {
+        "inputs": [
+            { "internalType": "uint64", "name": "_newWhaleCloseTime", "type": "uint64" },
+            { "internalType": "uint64", "name": "_newCommunityCloseTime", "type": "uint64" }
+        ],
+        "name": "updateTime",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "userIDOAirdropAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "userIDOTGEAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "userPurchasedAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "whaleCloseTime", "outputs": [{ "internalType": "uint64", "name": "", "type": "uint64" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "whaleOpenTime", "outputs": [{ "internalType": "uint64", "name": "", "type": "uint64" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "_withdrawIDOTokenRecipient", "type": "address" }], "name": "withdrawIDOToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "_withdrawPurchaseTokenRecipient", "type": "address" }], "name": "withdrawPurchaseToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
+]

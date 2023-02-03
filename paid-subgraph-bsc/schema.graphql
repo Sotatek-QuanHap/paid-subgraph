@@ -1,0 +1,98 @@
+type ExampleEntity @entity {
+  id: Bytes!
+  count: BigInt!
+  version: Int! # uint8
+}
+
+type PoolEntity @entity {
+  id: ID!
+  pool_info_hash: Bytes!
+  created_by: Bytes!
+  tx_hash: String!
+  block_number: BigInt!
+  created_at: BigInt!
+}
+
+type AdminEntity @entity {
+  id: ID!
+  status: Boolean!
+  tx_hash: Bytes!
+  updated_by: Bytes!
+  created_at: BigInt!
+}
+
+type PoolSnapShotted @entity {
+  id: ID!
+  pool_address: PoolEntity!
+  block_number: BigInt!
+  created_at: BigInt!
+}
+
+type PoolUpdateTimeHistory @entity {
+  id: ID!
+  pool: PoolEntity!
+  whaleOpenTime: BigInt!
+  whaleCloseTime: BigInt!
+  communityOpenTime: BigInt!
+  communityCloseTime: BigInt!
+  block_number: BigInt!
+  created_at: BigInt!
+}
+
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  amount: BigInt! # uint256
+  atBlock: BigInt!
+}
+
+type BuyTokenHistory @entity {
+  id: ID!
+  pool: PoolEntity!
+  amount: BigInt!
+  user: Bytes! # address
+  block_number: BigInt!
+  pool_type: Int!
+  created_at: BigInt!
+  proof: [Bytes!]!
+}
+
+type WithDrawHistory @entity {
+  id: ID!
+  pool: PoolEntity!
+  amount: BigInt!
+  withdraw_to: Bytes! # address
+  withdrawer: Bytes! # address
+  token: Bytes! # address
+  type: String!
+  block_number: BigInt!
+  created_at: BigInt!
+}
+
+type ClosePoolHistory @entity {
+  id: ID!
+  pool: PoolEntity!
+  closed_by: Bytes! # address
+  block_number: BigInt!
+  created_at: BigInt!
+}
+
+type RedeemHistory @entity {
+  id: ID!
+  user: Bytes! # address
+  amount: BigInt!
+  pool: PoolEntity!
+  block_number: BigInt!
+  created_at: BigInt!
+}

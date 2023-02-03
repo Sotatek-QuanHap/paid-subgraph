@@ -1,0 +1,92 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PoolFactory
+    network: goerli
+    source:
+      address: "0xa9634B384Fa5eb9a6335514b73977DC93c4E3216"
+      abi: PoolFactory
+      startBlock: 8259728
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Initialized
+        - PoolCreated
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - UpdatePoolImplementation
+      abis:
+        - name: PoolFactory
+          file: ./abis/PoolFactory.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: PoolCreated(bytes32,address)
+          handler: handlePoolCreated
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/pool-factory.ts
+  - kind: ethereum
+    name: PAID
+    network: goerli
+    source:
+      address: "0xD4C5536CeC733b5A477C8DAE9F036b9b50EaE09e"
+      abi: PAID
+      startBlock: 8336204
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - PAIDInitialized
+        - Transfer
+      abis:
+        - name: PAID
+          file: ./abis/PAID.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: PAIDInitialized(uint8)
+          handler: handlePAIDInitialized
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/paid.ts
+templates:
+  - name: Pool
+    kind: ethereum/contract
+    network: goerli
+    source:
+      abi: Pool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/pool-factory.ts
+      entities:
+        - UpdateRoot
+      abis:
+        - name: Pool
+          file: ./abis/Pool.json
+      eventHandlers:
+        - event: UpdateRoot(bytes32)
+          handler: handleUpdateRoot
+        - event: UpdateTime(uint64,uint64,uint64,uint64)
+          handler: handleUpdateTime
+        - event: BuyToken(indexed address,indexed address,indexed address,uint256,uint8)
+          handler: handleBuyToken
+        - event: WithdrawIDOToken(address,address,uint256)
+          handler: handleWithdrawIDOToken
+        - event: WithdrawPurchaseToken(address,address,uint256)
+          handler: handleWithdrawPurchaseToken
+        - event: UpdateOpenPoolStatus(indexed address,bool)
+          handler: handleClosePool
+        - event: RedeemTGEAmount(address,uint256)
+          handler: handleRedeemTGE

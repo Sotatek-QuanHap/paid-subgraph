@@ -1,0 +1,6 @@
+paid-subgraph-eth/build/
+paid-subgraph-eth/generated/
+paid-subgraph-eth/node_modules/
+paid-subgraph-bsc/build/
+paid-subgraph-bsc/generated/
+paid-subgraph-bsc/node_modules/

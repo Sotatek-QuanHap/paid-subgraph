@@ -1,0 +1,10 @@
+{
+  "goerli": {
+    "PoolFactory": {
+      "address": "0xe4911E6818d30BB0Cf0cA88A407AbAF449927162"
+    },
+    "PAID": {
+      "address": "0xaB1531F8Cf8598930F016b9A5C85464cdC38527A"
+    }
+  }
+}
