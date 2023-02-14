@@ -96,3 +96,8 @@ type RedeemHistory @entity {
   block_number: BigInt!
   created_at: BigInt!
 }
+
+type UserBalance @entity {
+  id: ID!
+  balance: BigInt!
+}

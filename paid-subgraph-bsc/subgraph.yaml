@@ -33,6 +33,32 @@ dataSources:
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
           handler: handleRoleRevoked
       file: ./src/pool-factory.ts
+  - kind: ethereum
+    name: PAID
+    network: chapel
+    source:
+      address: "0x60956E7785fE75587fA6F27b52b67FA931E8df01"
+      abi: PAID
+      startBlock: 27024014
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - PAIDInitialized
+        - Transfer
+      abis:
+        - name: PAID
+          file: ./abis/PAID.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: PAIDInitialized(uint8)
+          handler: handlePAIDInitialized
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/paid.ts
 templates:
   - name: Pool
     kind: ethereum/contract
